@@ -1,9 +1,9 @@
-//constructor 
-function Book(title, author, numPages, date){
+//constructor
+function Book(title, author, numPages, pubDate){
   this.title = title;
   this.author = author;
   this.numPages = numPages;
-  this.pubDate = date;
+  this.pubDate = pubDate;
 }
 //methods
-Book.prototype.editBook = function(obj){};
+Book.prototype.editBook = function(oBook){};
