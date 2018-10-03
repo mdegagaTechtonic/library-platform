@@ -26,11 +26,29 @@ function Book(title, author, numPages, pubDate) {
 * @return {Book} the edited book object
 */
 Book.prototype.editBook = function(oBook){
+  //how about undefined properties of oBook?
+  switch(oBook) {
+    case oBook.title !== null:
+      this.title = oBook.title;
+      break;
+    case oBook.author !== null:
+      this.author = oBook.author;
+      break;
+    case oBook.numPages !== null:
+      this.numPages = oBook.numPages;
+      break;
+    default:
+      break;
+  }
+  //if switch doesn't work....
+  // if(oBook.title !=== null) {
+  //   this.title = oBook.title;
+  // }
 
 };
 
 var b = new Book("d", "k", 24, 1990);
-console.log(b.editBook({name:'k'})); 
+console.log(b.editBook({name:'k'}));
 
 
 
