@@ -71,6 +71,7 @@ Library.prototype.removeBookByAuthor = function(authorName) {
   }
   else {
     this.bookShelf = newBookShelf;
+    return true; 
   }
 };
 
@@ -135,6 +136,7 @@ Library.prototype.addBooks = function(books) {
 * @return {Array} of Strings of the names of all distinct authors or an empty array if no books exist or if no authors exist
 */
 Library.prototype.getAuthors = function() {
+  //another way to do this....
   var authors = [];
   if(this.bookShelf.length === 0) {
     return authors; //we have no books in the library
@@ -142,12 +144,12 @@ Library.prototype.getAuthors = function() {
   else {
     //get all the authors in your library
     authors = this.bookShelf.map(book => book.author);
-    //then filter 
-
-    authors.push(this.bookShelf[0].author);
-    for(var i = 1; i < this.bookShelf.length; i++) {
-      if(authors.filter(author => author.match(/this.bookShelf[i]/i)).length === 0) {
-
+    //remove repeats
+    for(var i = 0; i < authors; i++) {
+      for(var j = i+1; j < authors; j++) {
+        if(authors[j] === authors[i]) { //repeat was found
+          authors.splice(j); //remove it
+        }
       }
     }
     return authors;
