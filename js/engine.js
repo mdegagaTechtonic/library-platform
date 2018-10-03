@@ -24,27 +24,63 @@ function Library() {
 * @param {Book} book
 * @return {boolean} true if it was added in or false (because it is already in the library)
 */
-Library.prototype.addBook = function(book) {};
+Library.prototype.addBook = function(book) {
+  //if book is in the bookShelf, will be returned in an array and check its length
+  if(this.bookShelf.filter(b => b.title === book.title).length === 0) {
+    this.bookShelf.push(book);
+    return true;
+  }
+  else {
+    return false;
+  }
+};
 
 /**
 * Removes a book by its title from the library
 * @param {String} title
 * @return {boolean} true if it was removed or false (because it is not in the library)
 */
-Library.prototype.removeBookByTitle = function(title) {};
+Library.prototype.removeBookByTitle = function(title) {
+  //gets a book from the library
+  //check param is not null ***
+  //case - insensitive /trim
+  for(var i = 0; i < this.bookShelf.length; i++) {
+    //if the same title, remove book
+    if(this.bookShelf[i].title.toLowerCase() === title.toLowerCase().trim()) {
+      this.bookShelf.splice(i,1); //i is the index to start changing the array, 1 is the number of array elements to remove
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+};
 
 /**
 * Removes all books by the author's name from the library
 * @param {String} authorName
 * @return {boolean} true if they were removed or false (because they are not in the library)
 */
-Library.prototype.removeBookByAuthor = function(authorName) {};
+Library.prototype.removeBookByAuthor = function(authorName) {
+  //check if param is null / empty string
+  //case insensitive
+  var newBookShelf = this.bookShelf.filter(book => book.author.toLowerCase() !== authorName.trim().toLowerCase());
+  //authors not in new bookshelf
+  if(newBookShelf.lengh === this.bookShelf.length) {
+    return false; //author not in the library because the length stayed the same
+  }
+  else {
+    this.bookShelf = newBookShelf;
+  }
+};
 
 /**
 * Return a random book from the library
 * @return {Book} or null if there are no books in the library
 */
-Library.prototype.getRandomBook = function() {};
+Library.prototype.getRandomBook = function() {
+  
+};
 
 /**
 * Returns all books that completely and partially match the title
@@ -82,7 +118,10 @@ Library.prototype.getRandomAuthorName = function() {};
 
 
 
-
+var Lib = new Library();
+Lib.addBook({name:'bbb', title: 'wk'});
+Lib.addBook({name:'bbb', title: 'www'});
+Lib.removeBookByTitle('www');
 
 
 
@@ -90,6 +129,8 @@ Library.prototype.getRandomAuthorName = function() {};
 document.addEventListener("DOMContentLoaded", function(e){
   //will access all the libaray methods
   window.gLibrary = new Library();
+  //another instance
+  //window.gDenverLibrary = new Library();
 });
 
 
@@ -161,3 +202,36 @@ document.addEventListener("DOMContentLoaded", function(e){
 //
 // console.log(Tree.prototype);
 // console.log(cat.prototype);
+
+
+
+// function myObjectConst(what){
+//     this.iAm = what;
+//     this.whatAmI = function(){
+//         console.log('I am ' + this.iAm);
+//     };
+// };
+//
+// var myObjectLit = {
+//     iAm : 'an object',
+//     whatAmI : function(){
+//         console.log('I am ' + this.iAm);
+//     }
+// };
+//
+// // To use a literally notated object, you simply use it by referencing
+// //its variable name, so wherever it is required you call it by typing;
+// myObjectLit.whatAmI();
+//
+// // With constructor functions you need to instantiate
+// //(create a new instance of) the object first; you do this by typing;
+// var myNewObjectOne = new myObjectConst('an object named myNewObjectOne');
+// myNewObjectOne.whatAmI();
+//
+// var myNewObjectTwo = new myObjectConst('an object named myNewObjectTwo');
+// myNewObjectTwo.whatAmI();
+//
+//
+// myObjectConst.iAm = 'name';
+// console.log(myObjectConst.iAm);
+// console.log(myObjectLit.iAm);

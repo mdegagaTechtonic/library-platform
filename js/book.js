@@ -12,6 +12,7 @@
 * @param {Date} pubDate is the published date
 */
 function Book(title, author, numPages, pubDate) {
+  //Can error check to make sure all the fields were provided and they are not null
   this.title = title;
   this.author = author;
   this.numPages = numPages;
