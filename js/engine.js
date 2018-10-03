@@ -79,7 +79,12 @@ Library.prototype.removeBookByAuthor = function(authorName) {
 * @return {Book} or null if there are no books in the library
 */
 Library.prototype.getRandomBook = function() {
-  
+  //Math.random returns a number between 0 and 1 (not inclusive)
+  //Math.floor rounds the number down
+  //gets an index between 0 and lenght-1
+  var randIndex = Math.floor(Math.random()*this.bookShelf.length);
+  return this.bookShelf[randIndex];
+
 };
 
 /**
@@ -87,21 +92,27 @@ Library.prototype.getRandomBook = function() {
 * @param {String} title
 * @return {Array} of book Objects that match and partially match the title or an empty array if no books match or partially match
 */
-Library.prototype.getBookByTitle = function(title) {};
+Library.prototype.getBookByTitle = function(title) {
+  //regular expression
+};
 
 /**
 * Returns all books that match and partially match the author's name
 * @param {String} authorName
 * @return {Array} of books Objects that match and partially match the author name or an empty array if no books match or partially match
 */
-Library.prototype.getBookByAuthor = function(authorName) {};
+Library.prototype.getBookByAuthor = function(authorName) {
+  //regular expression
+};
 
 /**
 * Adds a collection of books to the library
 * @param {Array} books
 * @return {number} of books added in or zero if no books were added in
 */
-Library.prototype.addBooks = function(books) {};
+Library.prototype.addBooks = function(books) {
+  
+};
 
 /**
 * Returns the distinct authors' names from all books in the library
