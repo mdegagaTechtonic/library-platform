@@ -12,15 +12,13 @@
 //how to test the singleton
 //https://codepen.io/JoeCoulam/pen/mRqbzz?editors=0010
 function Library() {
-  if(this){
-    return this;
-  }
-  else {
+  //if(this){
+  //  return this;
+  //}
+  //else {
     this.bookShelf = new Array();
-  }
+  //}
 };
-
-
 
 //method
 //Global things for all objects; avoids repetition, saves memory
@@ -105,13 +103,14 @@ Library.prototype.getRandomBook = function() {
 * @return {Array} of book Objects that match and partially match the title or an empty array if no books match or partially match
 */
 Library.prototype.getBookByTitle = function(title) {
+  var regex = new RegExp(title, 'i');
   //regular expression
   //check param not null or empty
   //can have numbers in the param
   //will get an array of books that contain that title
-  var bookByTitle = this.bookShelf.filter(book => book.title.match(/title/i) !== null);
+  var bookByTitle = this.bookShelf.filter(book => book.title.match(regex) !== null);
   //map to a new array of titles
-  return bookByTitle.map(book => book.title);
+  return bookByTitle;
 };
 
 /**
@@ -120,11 +119,12 @@ Library.prototype.getBookByTitle = function(title) {
 * @return {Array} of books Objects that match and partially match the author name or an empty array if no books match or partially match
 */
 Library.prototype.getBookByAuthor = function(authorName) {
+  var regex = new RegExp(authorName, 'i');
   //regular expression
   //check param not null or empty
   //can have numbers in the param
   //will get an array of books that contain that title
-  var bookByAuthor = this.bookShelf.filter(book => book.author.match(/authorName/i) !== null);
+  var bookByAuthor = this.bookShelf.filter(book => book.author.match(regex) !== null);
   return bookByAuthor;
 };
 
@@ -137,7 +137,7 @@ Library.prototype.addBooks = function(books) {
   //get the length before books are added in
   var lengthBefore = this.bookShelf.length;
   //go through the array of books and call addBook
-  books.forEach(addBook);
+  books.forEach(book => this.addBook(book));
   return (this.bookShelf.length - lengthBefore); //will be zero if no books were added in
 };
 
@@ -176,22 +176,52 @@ Library.prototype.getRandomAuthorName = function() {
   return this.bookShelf[randIndex].author;
 };
 
+/**
+* Returns a list of books based on any number of inputs
+* @return {Array} of books name or null if no books exist
+*/
+Library.prototype.search = function() {
+  for(var i = 0; i < arguments.length; i++) {
+
+  }
+}
 
 
-//
-// var Lib = new Library();
-// Lib.addBook({name:'bbb', title: 'wk'});
-// Lib.addBook({name:'bbb', title: 'www'});
-// Lib.removeBookByTitle('www');
-
-
-
+//what does DOMContentLoaded initiate?
 //Will create the instance of our library
 document.addEventListener("DOMContentLoaded", function(e){
   //will access all the libaray methods
+  window.gLibrary = {};
   window.gLibrary = new Library();
   //another instance
   //window.gDenverLibrary = new Library();
+  //need to handle empty case
+  //gLibrary.addBook({});
+  //empty test
+  gLibrary.removeBookByTitle("wawa");
+  gLibrary.removeBookByAuthor("W.B");
+
+  var book1 = new Book("Waterfall", "W.B", 20, 2018);
+  gLibrary.addBook(book1);
+  var book2 = new Book("Waterfall", "W.B", 20, 2018);
+  gLibrary.addBook(book2); //works
+  var book3 = new Book("Volcano", "E.F", 78, 1989);
+  book2.editBook(book3); //works
+  //console.log(book2);
+  gLibrary.addBook(book2);
+
+  gLibrary.removeBookByTitle("Waterfall");
+  gLibrary.removeBookByAuthor("E.F");
+
+  gLibrary.getBookByAuthor("m");
+  gLibrary.addBooks([{author:'b', title:'ka'},{author:'k', title: 'soso'}]);
+  var list = gLibrary.getBookByTitle("ka");
+  gLibrary.getAuthors();
+  var name = gLibrary.getRandomAuthorName();
+  var book4 = gLibrary.getRandomBook();
+  console.log(book4)
+  //console.log(list);
+  //console.log(name);
 });
 
 
