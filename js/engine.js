@@ -1,4 +1,12 @@
-//construtor function
+/**
+ * @file The Library class that stores a collection of books
+ * @author Merry Degaga
+ * @version 10.3.2018
+ */
+
+/*
+* Constructor creates a library
+*/
 //more appropriate for unique things/values for each object
 function Library() {
   this.bookShelf = new Array();
@@ -13,21 +21,21 @@ function Library() {
 
 /**
 * Adds a book to the library
-* @param book {Object} is the book to add in
+* @param {Book} book
 * @return {boolean} true if it was added in or false (because it is already in the library)
 */
 Library.prototype.addBook = function(book) {};
 
 /**
 * Removes a book by its title from the library
-* @param title {String} is the book to remove
+* @param {String} title
 * @return {boolean} true if it was removed or false (because it is not in the library)
 */
 Library.prototype.removeBookByTitle = function(title) {};
 
 /**
 * Removes all books by the author's name from the library
-* @param authorName {String} are the books to remove
+* @param {String} authorName
 * @return {boolean} true if they were removed or false (because they are not in the library)
 */
 Library.prototype.removeBookByAuthor = function(authorName) {};
@@ -40,21 +48,21 @@ Library.prototype.getRandomBook = function() {};
 
 /**
 * Returns all books that completely and partially match the title
-* @param title {String} to retrieve
+* @param {String} title
 * @return {Array} of book Objects that match and partially match the title or an empty array if no books match or partially match
 */
 Library.prototype.getBookByTitle = function(title) {};
 
 /**
 * Returns all books that match and partially match the author's name
-* @param authorName {String} to retrieve
+* @param {String} authorName
 * @return {Array} of books Objects that match and partially match the author name or an empty array if no books match or partially match
 */
 Library.prototype.getBookByAuthor = function(authorName) {};
 
 /**
 * Adds a collection of books to the library
-* @param books {Array} are the books to add in
+* @param {Array} books
 * @return {number} of books added in or zero if no books were added in
 */
 Library.prototype.addBooks = function(books) {};

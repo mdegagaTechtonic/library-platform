@@ -1,11 +1,29 @@
-//constructor function
-function Book(title, author, numPages, pubDate){
+/**
+ * @file The Book class
+ * @author Merry Degaga
+ * @version 10.3.2018
+ */
+
+/**
+* Constructor will create a book from parameters
+* @param {String} title
+* @param {String} author
+* @param {number} numPages is the number of pages
+* @param {Date} pubDate is the published date
+*/
+function Book(title, author, numPages, pubDate) {
   this.title = title;
   this.author = author;
   this.numPages = numPages;
   this.pubDate = pubDate;
 }
+
 //methods
+/**
+* Takes an object that can have some or all of the fields {title,author,numPages} and edits the book using these fields
+* @param {Object} book
+* @return {Book} the edited book object
+*/
 Book.prototype.editBook = function(oBook){};
 
 
