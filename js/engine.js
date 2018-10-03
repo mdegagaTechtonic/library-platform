@@ -82,6 +82,7 @@ Library.prototype.getRandomBook = function() {
   //Math.random returns a number between 0 and 1 (not inclusive)
   //Math.floor rounds the number down
   //gets an index between 0 and lenght-1
+  //check when null
   var randIndex = Math.floor(Math.random()*this.bookShelf.length);
   return this.bookShelf[randIndex];
 
@@ -94,6 +95,12 @@ Library.prototype.getRandomBook = function() {
 */
 Library.prototype.getBookByTitle = function(title) {
   //regular expression
+  //check param not null or empty
+  //can have numbers in the param
+  //will get an array of books that contain that title
+  var bookByTitle = this.bookShelf.filter(book => book.title.match(/title/i) !== null);
+  //map to a new array of titles
+  return bookByTitle.map(book => book.title);
 };
 
 /**
@@ -103,6 +110,11 @@ Library.prototype.getBookByTitle = function(title) {
 */
 Library.prototype.getBookByAuthor = function(authorName) {
   //regular expression
+  //check param not null or empty
+  //can have numbers in the param
+  //will get an array of books that contain that title
+  var bookByAuthor = this.bookShelf.filter(book => book.author.match(/authorName/i) !== null);
+  return bookByAuthor;
 };
 
 /**
@@ -111,28 +123,54 @@ Library.prototype.getBookByAuthor = function(authorName) {
 * @return {number} of books added in or zero if no books were added in
 */
 Library.prototype.addBooks = function(books) {
-  
+  //get the length before books are added in
+  var lengthBefore = this.bookShelf.length;
+  //go through the array of books and call addBook
+  books.forEach(addBook);
+  return (this.bookShelf.length - lengthBefore); //will be zero if no books were added in
 };
 
 /**
 * Returns the distinct authors' names from all books in the library
-* @return {Array} of Strings of the names of all distinct authors or an empty array if not books exist or if no authors exist
+* @return {Array} of Strings of the names of all distinct authors or an empty array if no books exist or if no authors exist
 */
-Library.prototype.getAuthors = function() {};
+Library.prototype.getAuthors = function() {
+  var authors = [];
+  if(this.bookShelf.length === 0) {
+    return authors; //we have no books in the library
+  }
+  else {
+    //get all the authors in your library
+    authors = this.bookShelf.map(book => book.author);
+    //then filter 
+
+    authors.push(this.bookShelf[0].author);
+    for(var i = 1; i < this.bookShelf.length; i++) {
+      if(authors.filter(author => author.match(/this.bookShelf[i]/i)).length === 0) {
+
+      }
+    }
+    return authors;
+  }
+};
 
 /**
 * Returns a random author name from the library
-* @return {String} author name or null if no books exist or null if no books by that author
+* @return {String} author name or null if no books exist
 */
-Library.prototype.getRandomAuthorName = function() {};
+Library.prototype.getRandomAuthorName = function() {
+  //check when library is empty that it returns null
+  var randIndex = Math.floor(Math.random()*this.bookShelf.length);
+  return this.bookShelf[randIndex].author;
+};
 
 
 
-
-var Lib = new Library();
-Lib.addBook({name:'bbb', title: 'wk'});
-Lib.addBook({name:'bbb', title: 'www'});
-Lib.removeBookByTitle('www');
+//
+// var Lib = new Library();
+// Lib.addBook({name:'bbb', title: 'wk'});
+// Lib.addBook({name:'bbb', title: 'www'});
+// Lib.removeBookByTitle('www');
 
 
 

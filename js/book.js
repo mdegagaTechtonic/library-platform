@@ -25,7 +25,12 @@ function Book(title, author, numPages, pubDate) {
 * @param {Object} book
 * @return {Book} the edited book object
 */
-Book.prototype.editBook = function(oBook){};
+Book.prototype.editBook = function(oBook){
+
+};
+
+var b = new Book("d", "k", 24, 1990);
+console.log(b.editBook({name:'k'})); 
 
 
 
