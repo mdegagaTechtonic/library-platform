@@ -8,9 +8,19 @@
 * Constructor creates a library
 */
 //more appropriate for unique things/values for each object
+//create a singleton
+//how to test the singleton
+//https://codepen.io/JoeCoulam/pen/mRqbzz?editors=0010
 function Library() {
-  this.bookShelf = new Array();
+  if(this){
+    return this;
+  }
+  else {
+    this.bookShelf = new Array();
+  }
 };
+
+
 
 //method
 //Global things for all objects; avoids repetition, saves memory
@@ -71,7 +81,7 @@ Library.prototype.removeBookByAuthor = function(authorName) {
   }
   else {
     this.bookShelf = newBookShelf;
-    return true; 
+    return true;
   }
 };
 

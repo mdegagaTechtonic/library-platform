@@ -44,7 +44,6 @@ Book.prototype.editBook = function(oBook){
   // if(oBook.title !=== null) {
   //   this.title = oBook.title;
   // }
-
 };
 
 var b = new Book("d", "k", 24, 1990);
