@@ -12,12 +12,7 @@
 //how to test the singleton
 //https://codepen.io/JoeCoulam/pen/mRqbzz?editors=0010
 function Library() {
-  //if(this){
-  //  return this;
-  //}
-  //else {
     this.bookShelf = new Array();
-  //}
 };
 
 //method
@@ -58,10 +53,8 @@ Library.prototype.removeBookByTitle = function(title) {
       this.bookShelf.splice(i,1); //i is the index to start changing the array, 1 is the number of array elements to remove
       return true;
     }
-    else {
-      return false;
-    }
   }
+  return false;
 };
 
 /**
@@ -72,14 +65,16 @@ Library.prototype.removeBookByTitle = function(title) {
 Library.prototype.removeBookByAuthor = function(authorName) {
   //check if param is null / empty string
   //case insensitive
+  //console.log(this.bookShelf);
   var newBookShelf = this.bookShelf.filter(book => book.author.toLowerCase() !== authorName.trim().toLowerCase());
   //authors not in new bookshelf
-  if(newBookShelf.lengh === this.bookShelf.length) {
-    return false; //author not in the library because the length stayed the same
+  if(newBookShelf.length < this.bookShelf.length) {
+    this.bookShelf = newBookShelf;
+    //console.log('true')
+    return true;
   }
   else {
-    this.bookShelf = newBookShelf;
-    return true;
+    return false; //author not in the library because the length stayed the same
   }
 };
 
@@ -94,7 +89,7 @@ Library.prototype.getRandomBook = function() {
   //check when null
   var randIndex = Math.floor(Math.random()*this.bookShelf.length);
   return this.bookShelf[randIndex];
-
+  //*****ask is it okay to return undefined instead of null
 };
 
 /**
@@ -103,7 +98,10 @@ Library.prototype.getRandomBook = function() {
 * @return {Array} of book Objects that match and partially match the title or an empty array if no books match or partially match
 */
 Library.prototype.getBookByTitle = function(title) {
-  var regex = new RegExp(title, 'i');
+  //checks that the param exists
+  if (title) {
+    var regex = new RegExp(title.trim(), 'i');
+  }
   //regular expression
   //check param not null or empty
   //can have numbers in the param
@@ -119,7 +117,10 @@ Library.prototype.getBookByTitle = function(title) {
 * @return {Array} of books Objects that match and partially match the author name or an empty array if no books match or partially match
 */
 Library.prototype.getBookByAuthor = function(authorName) {
-  var regex = new RegExp(authorName, 'i');
+  //checks that the param exists
+  if (authorName) {
+    var regex = new RegExp(authorName, 'i');
+  }
   //regular expression
   //check param not null or empty
   //can have numbers in the param
@@ -180,11 +181,11 @@ Library.prototype.getRandomAuthorName = function() {
 * Returns a list of books based on any number of inputs
 * @return {Array} of books name or null if no books exist
 */
-Library.prototype.search = function() {
-  for(var i = 0; i < arguments.length; i++) {
-
-  }
-}
+// Library.prototype.search = function() {
+//   for(var i = 0; i < arguments.length; i++) {
+//
+//   }
+// } EC
 
 
 //what does DOMContentLoaded initiate?
@@ -198,28 +199,50 @@ document.addEventListener("DOMContentLoaded", function(e){
   //need to handle empty case
   //gLibrary.addBook({});
   //empty test
-  gLibrary.removeBookByTitle("wawa");
-  gLibrary.removeBookByAuthor("W.B");
+  //gLibrary.removeBookByTitle("wawa");
+  //console.log(gLibrary.removeBookByAuthor("W.B"));
+  //console.log(gLibrary.getRandomBook());
+  //console.log(gLibrary.getBookByTitle());
 
   var book1 = new Book("Waterfall", "W.B", 20, 2018);
+  var book2 = new Book("HummingBirds", "W.B", 20, 2018);
+  var book3 = new Book("NiteSky", "Bay", 20, 2018);
+  var book4 = new Book("Nite", "B", 20, 2018);
   gLibrary.addBook(book1);
-  var book2 = new Book("Waterfall", "W.B", 20, 2018);
-  gLibrary.addBook(book2); //works
-  var book3 = new Book("Volcano", "E.F", 78, 1989);
-  book2.editBook(book3); //works
-  //console.log(book2);
   gLibrary.addBook(book2);
+  gLibrary.addBook(book3);
+  gLibrary.addBook(book4);
 
-  gLibrary.removeBookByTitle("Waterfall");
-  gLibrary.removeBookByAuthor("E.F");
+  //console.log(gLibrary.removeBookByAuthor("k"));
+  //console.log(gLibrary.removeBookByAuthor("bay"));
+  //console.log(gLibrary.removeBookByAuthor("W.B"));
+  //console.log(gLibrary.getRandomBook())
+  //console.log(gLibrary.getRandomBook())
+  //console.log(gLibrary.getRandomBook())
+  //console.log(gLibrary.getBookByTitle('bb'));
+  //console.log(gLibrary.getBookByTitle('nite '));
 
-  gLibrary.getBookByAuthor("m");
-  gLibrary.addBooks([{author:'b', title:'ka'},{author:'k', title: 'soso'}]);
-  var list = gLibrary.getBookByTitle("ka");
-  gLibrary.getAuthors();
-  var name = gLibrary.getRandomAuthorName();
-  var book4 = gLibrary.getRandomBook();
-  console.log(book4)
+
+
+  //console.log(gLibrary.removeBookByTitle("k"));
+
+  // var book2 = new Book("Waterfall", "W.B", 20, 2018);
+  // gLibrary.addBook(book2); //works
+  // var book3 = new Book("Volcano", "E.F", 78, 1989);
+  // book2.editBook(book3); //works
+  // //console.log(book2);
+  // gLibrary.addBook(book2);
+  //
+  // gLibrary.removeBookByTitle("Waterfall");
+  // gLibrary.removeBookByAuthor("E.F");
+  //
+  // gLibrary.getBookByAuthor("m");
+  // gLibrary.addBooks([{author:'b', title:'ka'},{author:'k', title: 'soso'}]);
+  // var list = gLibrary.getBookByTitle("ka");
+  // gLibrary.getAuthors();
+  // var name = gLibrary.getRandomAuthorName();
+  // var book4 = gLibrary.getRandomBook();
+  // console.log(book4)
   //console.log(list);
   //console.log(name);
 });

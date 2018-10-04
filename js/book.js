@@ -13,8 +13,8 @@
 */
 function Book(title, author, numPages, pubDate) {
   //Can error check to make sure all the fields were provided and they are not null
-  this.title = title;
-  this.author = author;
+  this.title = title.trim();
+  this.author = author.trim();
   this.numPages = numPages;
   this.pubDate = pubDate;
 }
@@ -27,21 +27,6 @@ function Book(title, author, numPages, pubDate) {
 */
 Book.prototype.editBook = function(oBook){
   //how about undefined properties of oBook?
-  // switch(oBook) {
-  //   case oBook.title !== null:
-  //     this.title = oBook.title;
-  //     break;
-  //   case oBook.author !== null:
-  //     this.author = oBook.author;
-  //     break;
-  //   case oBook.numPages !== null:
-  //     this.numPages = oBook.numPages;
-  //     break;
-  //   default:
-  //     break;
-  // }
-
-  //if switch doesn't work....
   if(oBook.title !== null) {
     this.title = oBook.title;
   }
@@ -52,12 +37,6 @@ Book.prototype.editBook = function(oBook){
     this.numPages = oBook.numPages;
   }
 };
-
-var b = new Book("d", "k", 24, 1990);
-console.log(b.editBook({name:'k'}));
-
-
-
 
 
 // //testing
