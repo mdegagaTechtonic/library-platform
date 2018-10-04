@@ -9,10 +9,6 @@
 */
 //more appropriate for unique things/values for each object
 //create a singleton
-//how to test the singleton
-//https://codepen.io/JoeCoulam/pen/mRqbzz?editors=0010
-//var instance = null;
-//window.Library = undefined;
 (function() {//SINGLETON
   var instance;
   console.log(instance);
@@ -30,11 +26,6 @@
 
 //method
 //Global things for all objects; avoids repetition, saves memory
-
-//Library.prototype.checkedOut = true; //testing
-//var book = new Library(); //testing
-//console.log(book.checkedOut); ///testing
-
 /**
 * Adds a book to the library
 * @param {Book} book
