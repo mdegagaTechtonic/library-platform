@@ -87,9 +87,13 @@ Library.prototype.getRandomBook = function() {
   //Math.floor rounds the number down
   //gets an index between 0 and lenght-1
   //check when null
-  var randIndex = Math.floor(Math.random()*this.bookShelf.length);
-  return this.bookShelf[randIndex];
-  //*****ask is it okay to return undefined instead of null
+  if(this.bookShelf.length === 0) {
+    return null;
+  }
+  else {
+    var randIndex = Math.floor(Math.random()*this.bookShelf.length);
+    return this.bookShelf[randIndex];
+  }
 };
 
 /**
@@ -119,7 +123,7 @@ Library.prototype.getBookByTitle = function(title) {
 Library.prototype.getBookByAuthor = function(authorName) {
   //checks that the param exists
   if (authorName) {
-    var regex = new RegExp(authorName, 'i');
+    var regex = new RegExp(authorName.trim(), 'i');
   }
   //regular expression
   //check param not null or empty
@@ -156,10 +160,10 @@ Library.prototype.getAuthors = function() {
     //get all the authors in your library
     authors = this.bookShelf.map(book => book.author);
     //remove repeats
-    for(var i = 0; i < authors; i++) {
-      for(var j = i+1; j < authors; j++) {
+    for(var i = 0; i < authors.length; i++) {
+      for(var j = i+1; j < authors.length; j++) {
         if(authors[j] === authors[i]) { //repeat was found
-          authors.splice(j); //remove it
+          authors.splice(j,1); //remove it
         }
       }
     }
@@ -173,8 +177,13 @@ Library.prototype.getAuthors = function() {
 */
 Library.prototype.getRandomAuthorName = function() {
   //check when library is empty that it returns null
-  var randIndex = Math.floor(Math.random()*this.bookShelf.length);
-  return this.bookShelf[randIndex].author;
+  if(this.bookShelf.length === 0) {
+    return null;
+  }
+  else {
+    var randIndex = Math.floor(Math.random()*this.bookShelf.length);
+    return this.bookShelf[randIndex].author;
+  }
 };
 
 /**
@@ -203,6 +212,10 @@ document.addEventListener("DOMContentLoaded", function(e){
   //console.log(gLibrary.removeBookByAuthor("W.B"));
   //console.log(gLibrary.getRandomBook());
   //console.log(gLibrary.getBookByTitle());
+  // console.log(gLibrary.getBookByAuthor('d'))
+  //console.log(gLibrary.addBooks([]));
+  //console.log(gLibrary.getAuthors());
+  // console.log(gLibrary.getRandomAuthorName());
 
   var book1 = new Book("Waterfall", "W.B", 20, 2018);
   var book2 = new Book("HummingBirds", "W.B", 20, 2018);
@@ -213,6 +226,18 @@ document.addEventListener("DOMContentLoaded", function(e){
   gLibrary.addBook(book3);
   gLibrary.addBook(book4);
 
+  var book5 = new Book("NiteTime", "B", 20, 2018);
+  var book6 = new Book("Pie Recipes", "G", 20, 2018);
+
+  // console.log(gLibrary.bookShelf[0]);
+  // console.log(gLibrary.bookShelf[0].editBook(book6));
+  // console.log(gLibrary.bookShelf[0].editBook(book5));
+  // console.log(gLibrary.getRandomAuthorName());
+  // console.log(gLibrary.getRandomAuthorName());
+  // console.log(gLibrary.getRandomAuthorName());
+  //console.log(gLibrary.getAuthors());
+  //var arr = [book5, book6];
+  //console.log(gLibrary.addBooks(arr));
   //console.log(gLibrary.removeBookByAuthor("k"));
   //console.log(gLibrary.removeBookByAuthor("bay"));
   //console.log(gLibrary.removeBookByAuthor("W.B"));
@@ -221,6 +246,9 @@ document.addEventListener("DOMContentLoaded", function(e){
   //console.log(gLibrary.getRandomBook())
   //console.log(gLibrary.getBookByTitle('bb'));
   //console.log(gLibrary.getBookByTitle('nite '));
+  // console.log(gLibrary.getBookByAuthor('k'));
+  // console.log(gLibrary.getBookByAuthor("W.B"))
+  // console.log(gLibrary.getBookByAuthor("b "))
 
 
 
