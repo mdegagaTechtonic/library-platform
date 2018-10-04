@@ -296,7 +296,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     gLibrary.bookShelf = JSON.parse(localStorage.getItem("library"));
     //console.log(obj);
     //console.log(JSON.parse(localStorage.getItem("library")).addBook(book7));
-    console.log(window.gLibrary.addBook(book7));
+    console.log(gLibrary.addBook(book7));
     window.localStorage.setItem('library',JSON.stringify(gLibrary.bookShelf));
     document.getElementById("result").innerHTML = localStorage.getItem("library");
 
@@ -304,6 +304,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 
 } else {
     // Sorry! No Web Storage support..
+    console.log("Web storage is not supported in this browser");
 }
 });
 
