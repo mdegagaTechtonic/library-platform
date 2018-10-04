@@ -215,7 +215,7 @@ Library.prototype.find = function(title, author, numPages, pubDate) {
     found.concat(this.bookShelf.filter(book.numPages === numPages));
   }
   if(pubDate) {
-    found.concat(this.bookShelf.filter(book.pubDate === pubDate));
+    found.concat(this.bookShelf.filter(book.pubDate.getFullYear() === pubDate));
   }
   return found;
 }

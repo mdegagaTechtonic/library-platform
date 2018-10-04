@@ -9,14 +9,14 @@
 * @param {String} title
 * @param {String} author
 * @param {number} numPages is the number of pages
-* @param {Date} pubDate is the published date
+* @param {number} pubDate is the published date
 */
 function Book(title, author, numPages, pubDate) {
   //Can error check to make sure all the fields were provided and they are not null
   this.title = title.trim();
   this.author = author.trim();
   this.numPages = numPages;
-  this.pubDate = pubDate;
+  this.pubDate = new Date().setFullYear(pubDate);
 }
 
 //methods
@@ -36,7 +36,7 @@ Book.prototype.editBook = function(oBook){
   if(oBook.numPages !== null) {
     this.numPages = oBook.numPages;
   }
-  return this; 
+  return this;
 };
 
 
