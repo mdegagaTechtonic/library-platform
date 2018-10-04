@@ -286,6 +286,25 @@ document.addEventListener("DOMContentLoaded", function(e){
   // var name = gLibrary.getRandomAuthorName();
   // console.log(list);
   // console.log(name);
+
+  //Check for webstorage support
+  if (typeof(Storage) !== "undefined") {
+    // Code for localStorage/sessionStorage.
+    //window.localStorage.setItem('lastname', 'Degaga');
+    window.localStorage.setItem('library', JSON.stringify(gLibrary.bookShelf));
+    var book7 = new Book("Pie", "G", 20, 2018);
+    gLibrary.bookShelf = JSON.parse(localStorage.getItem("library"));
+    //console.log(obj);
+    //console.log(JSON.parse(localStorage.getItem("library")).addBook(book7));
+    console.log(window.gLibrary.addBook(book7));
+    window.localStorage.setItem('library',JSON.stringify(gLibrary.bookShelf));
+    document.getElementById("result").innerHTML = localStorage.getItem("library");
+
+    //document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+
+} else {
+    // Sorry! No Web Storage support..
+}
 });
 
 
