@@ -36,7 +36,7 @@ Book.prototype.editBook = function(oBook){
   if(oBook.numPages !== null) {
     this.numPages = oBook.numPages;
   }
-  return this; 
+  return this;
 };
 
 

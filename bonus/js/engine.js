@@ -203,15 +203,22 @@ Library.prototype.getRandomAuthorName = function() {
 * Returns a list of books based on any number of inputs
 * @return {Array} of books name or an empty array if no books exist
 */
-// Library.prototype.find = function() {
-//   var found = [];
-//   for(var i = 0; i < arguments.length; i++) {
-//     var property = arguments[i]
-//     found.concat(this.bookShelf.filter(book => book[arguments[i]] === arguments[]));
-//
-//   }
-//   return found;
-// }
+Library.prototype.find = function(title, author, numPages, pubDate) {
+  var found = [];
+  if(title) {
+    found.concat(getBookByTitle(title));
+  }
+  if(author) {
+    found.concat(getBookByAuthor(author));
+  }
+  if(numPages) {
+    found.concat(this.bookShelf.filter(book.numPages === numPages));
+  }
+  if(pubDate) {
+    found.concat(this.bookShelf.filter(book.pubDate === pubDate));
+  }
+  return found;
+}
 
 
 //what does DOMContentLoaded initiate?
