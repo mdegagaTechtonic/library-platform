@@ -15,7 +15,8 @@ function Book(title, author, numPages, pubDate) {
   this.title = title.trim();
   this.author = author.trim();
   this.numPages = numPages;
-  this.pubDate = new Date().setFullYear(pubDate);
+  this.pubDate = new Date();
+  this.pubDate.setFullYear(pubDate);
 }
 
 //methods
@@ -26,16 +27,20 @@ function Book(title, author, numPages, pubDate) {
 */
 Book.prototype.editBook = function(oBook){
   //make sure the info is unique too
-  //how about undefined properties of oBook?
-  if(oBook.title !== null) {
-    this.title = oBook.title;
+  //get the properities in the oBook
+  var oBookProperties = oBook.entries();
+  for(var i = 0; i < oBookProperties.length; i++) {
+    if(this.indexOf(oBookProperties[i]) !== -1) {
+      oBookProperties[i] = undefined; 
+    }
   }
-  if(oBook.author !== null) {
-    this.author = oBook.author;
-  }
-  if(oBook.numPages !== null) {
-    this.numPages = oBook.numPages;
-  }
+
+  this.title = oBook.title || this.title;
+
+  this.author = oBook.author || this.author;
+
+  this.numPages = oBook.numPages || this.numPages;
+
   return this;
 };
 

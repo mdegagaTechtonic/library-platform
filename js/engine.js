@@ -156,26 +156,35 @@ Library.prototype.addBooks = function(books) {
 * @return {Array} of Strings of the names of all distinct authors or an empty array if no books exist
 */
 Library.prototype.getAuthors = function() {
-  //another way to do this....
+  //version 2
   var authors = [];
-  if(this.bookShelf.length === 0) {
-    return authors; //we have no books in the library
-  }
-  else {
-    //get all the authors in your library
-    authors = this.bookShelf.map(function getAuthor(ele) {
-      return ele.author;
-    });
-    //remove repeats
-    for(var i = 0; i < authors.length; i++) {
-      for(var j = i+1; j < authors.length; j++) {
-        if(authors[j] === authors[i]) { //repeat was found
-          authors.splice(j,1); //remove it
-        }
-      }
+  var uniqueAuthors = {};
+  //is a book from the bookshelf, loop through all the books
+  for(var i in this.bookShelf) {
+    //checks if the author is already in the uniqueAuthors collection
+    if(typeof(uniqueAuthors[this.bookShelf[i].author]) === "undefined") {
+      authors.push(this.bookShelf[i].author);
     }
-    return authors;
+    uniqueAuthors[this.bookShelf[i].author] = "added";
   }
+  //version 1
+  // if(this.bookShelf.length === 0) {
+  //   return authors; //we have no books in the library
+  // }
+  // else {
+  //   //get all the authors in your library
+  //   authors = this.bookShelf.map(function getAuthor(ele) {
+  //     return ele.author;
+  //   });
+  //   //remove repeats
+  //   for(var i = 0; i < authors.length; i++) {
+  //     for(var j = i+1; j < authors.length; j++) {
+  //       if(authors[j] === authors[i]) { //repeat was found
+  //         authors.splice(j,1); //remove it
+  //       }
+  //     }
+  //   }
+  return authors;
 };
 
 /**
@@ -184,35 +193,33 @@ Library.prototype.getAuthors = function() {
 */
 Library.prototype.getRandomAuthorName = function() {
   //check when library is empty that it returns null
-  if(this.bookShelf.length === 0) {
+  var author = this.getRandomBook();
+  if(author === null) {
     return null;
   }
-  else {
-    var randIndex = Math.floor(Math.random()*this.bookShelf.length);
-    return this.bookShelf[randIndex].author;
-  }
+    return author;
 };
 
-/**
-* Returns a list of books based on any number of inputs
-* @return {Array} of books name or an empty array if no books exist
-*/
-Library.prototype.find = function(title, author, numPages, pubDate) {
-  var found = [];
-  if(title) {
-    found = found.concat(this.getBookByTitle(title));
-  }
-  if(author) {
-    found = found.concat(this.getBookByAuthor(author));
-  }
-  if(numPages) {
-    found = found.concat(this.bookShelf.filter(book => book.numPages === numPages));
-  }
-  if(pubDate) {
-    found = found.concat(this.bookShelf.filter(book => book.pubDate.getFullYear() === pubDate));
-  }
-  return found;
-}
+// /**
+// * Returns a list of books based on any number of inputs
+// * @return {Array} of books name or an empty array if no books exist
+// */
+// Library.prototype.find = function(title, author, numPages, pubDate) {
+//   var found = [];
+//   if(title) {
+//     found = found.concat(this.getBookByTitle(title));
+//   }
+//   if(author) {
+//     found = found.concat(this.getBookByAuthor(author));
+//   }
+//   if(numPages) {
+//     found = found.concat(this.bookShelf.filter(book => book.numPages === numPages));
+//   }
+//   if(pubDate) {
+//     found = found.concat(this.bookShelf.filter(book => book.pubDate.getFullYear() === pubDate));
+//   }
+//   return found;
+// }
 
 
 //what does DOMContentLoaded initiate?
@@ -267,14 +274,14 @@ document.addEventListener("DOMContentLoaded", function(e){
   // console.log(gLibrary.getRandomAuthorName());
   // console.log(gLibrary.getRandomAuthorName());
 
-  // console.log("Test getAuthors");
-  // console.log(gLibrary.getAuthors());
+  console.log("Test getAuthors");
+  console.log(gLibrary.getAuthors());
 
-  console.log("Test addBooks");
-  var arr = [book5, book6];
-  console.log("Test adding the same array of books");
-  console.log(gLibrary.addBooks(arr));
-  console.log(gLibrary.addBooks(arr));
+  // console.log("Test addBooks");
+  // var arr = [book5, book6];
+  // console.log("Test adding the same array of books");
+  // console.log(gLibrary.addBooks(arr));
+  // console.log(gLibrary.addBooks(arr));
 
   // console.log("Testing adding a single unique book from array");
   // var book8 = new Book("PieNite", "G", 20, 2018);
