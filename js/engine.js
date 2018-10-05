@@ -257,6 +257,9 @@ document.addEventListener("DOMContentLoaded", function(e){
 
   var book5 = new Book("NiteTime", "B", 20, 2018);
   var book6 = new Book("Pie Recipes", "G", 20, 2018);
+  var book8 = new Book("Pie Recipes", 20, 2018);
+  //console.log(gLibrary.bookShelf[0].editBook(book8));
+
 
   // console.log(gLibrary.bookShelf[0].editBook(book6));
   // console.log(gLibrary.bookShelf[0].editBook(book5));

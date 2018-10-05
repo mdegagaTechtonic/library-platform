@@ -12,9 +12,6 @@
 * @param {number} pubDate is the published year
 */
 function Book(title, author, numPages, pubDate) {
-  if(!title || !author || !numPages || !pubDate) {
-    return "Need title, author, number of pages, and publication year to create a book"
-  }
   this.title = title.trim();
   this.author = author.trim();
   this.numPages = numPages;
