@@ -10,13 +10,13 @@
 //more appropriate for unique things/values for each object
 (function() {//SINGLETON
   var instance;
-  console.log(instance);
+  //console.log(instance);
   Library = function() {
     if (instance) { //if a instance of library already exists this will point the newly made library to the Singleton instance
-      // console.log('alreeaady made an instance');
+      //console.log('already made an instance');
       return instance;
     }
-    // console.log('new instance made');
+    //console.log('new instance made');
     this.bookShelf = [];
     instance = this; //if a instance of library does not yet exist this will get and set the instance name for the new library
   }
@@ -192,26 +192,26 @@ Library.prototype.getRandomAuthorName = function() {
   }
 };
 
-/**
-* Returns a list of books based on any number of inputs
-* @return {Array} of books name or an empty array if no books exist
-*/
-Library.prototype.find = function(title, author, numPages, pubDate) {
-  var found = [];
-  if(title) {
-    found = found.concat(this.getBookByTitle(title));
-  }
-  if(author) {
-    found = found.concat(this.getBookByAuthor(author));
-  }
-  if(numPages) {
-    found = found.concat(this.bookShelf.filter(book => book.numPages === numPages));
-  }
-  if(pubDate) {
-    found = found.concat(this.bookShelf.filter(book => book.pubDate.getFullYear() === pubDate));
-  }
-  return found;
-}
+// /**
+// * Returns a list of books based on any number of inputs
+// * @return {Array} of books name or an empty array if no books exist
+// */
+// Library.prototype.find = function(title, author, numPages, pubDate) {
+//   var found = [];
+//   if(title) {
+//     found = found.concat(this.getBookByTitle(title));
+//   }
+//   if(author) {
+//     found = found.concat(this.getBookByAuthor(author));
+//   }
+//   if(numPages) {
+//     found = found.concat(this.bookShelf.filter(book => book.numPages === numPages));
+//   }
+//   if(pubDate) {
+//     found = found.concat(this.bookShelf.filter(book => book.pubDate.getFullYear() === pubDate));
+//   }
+//   return found;
+// }
 
 
 //what does DOMContentLoaded initiate?
@@ -231,6 +231,7 @@ document.addEventListener("DOMContentLoaded", function(e){
   //gLibrary.addBook({});
 
   //empty test
+  // console.log("Test methods on an empty library");
   // console.log(gLibrary.removeBookByTitle("wawa"));
   // console.log(gLibrary.removeBookByAuthor("W.B"));
   // console.log(gLibrary.getRandomBook());
@@ -239,58 +240,86 @@ document.addEventListener("DOMContentLoaded", function(e){
   // console.log(gLibrary.addBooks([]));
   // console.log(gLibrary.getAuthors());
   // console.log(gLibrary.getRandomAuthorName());
-  //console.log(gLibrary.find('name','key',29,444))
+  // console.log(gLibrary.find('name','key',29,444))
 
+  //console.log("Test addBook method");
+  // var book1 = new Book("Waterfall", "W.B", 20, 2018);
+  // var book2 = new Book("HummingBirds", "W.B", 20, 2018);
+  // var book3 = new Book("NiteSky", "Bay", 20, 2018);
+  // var book4 = new Book("Nite", "B", 20, 2018);
+  // console.log(gLibrary.addBook(book1));
+  // console.log(gLibrary.addBook(book2));
+  // console.log(gLibrary.addBook(book3));
+  // console.log(gLibrary.addBook(book4));
+  // console.log("Test adding a same book");
+  // var same = new Book("Nite", "B", 20, 2018);
+  // console.log(gLibrary.addBook(same));
 
-  var book1 = new Book("Waterfall", "W.B", 20, 2018);
-  var book2 = new Book("HummingBirds", "W.B", 20, 2018);
-  var book3 = new Book("NiteSky", "Bay", 20, 2018);
-  var book4 = new Book("Nite", "B", 20, 2018);
-  console.log(gLibrary.addBook(book1));
-  console.log(gLibrary.addBook(book2));
-  console.log(gLibrary.addBook(book3));
-  console.log(gLibrary.addBook(book4));
-  var same = new Book("Nite", "B", 20, 2018);
-  console.log(gLibrary.addBook(same));
-
-
-
-  var book5 = new Book("NiteTime", "B", 20, 2018);
-  var book6 = new Book("Pie Recipes", "G", 20, 2018);
-  var book8 = new Book("Pie Recipes", 20, 2018);
-  //console.log(gLibrary.bookShelf[0].editBook(book8));
-
-
+  // console.log("Test edit book");
+  // var book5 = new Book("NiteTime", "B", 20, 2018);
+  // var book6 = new Book("Pie Recipes", "G", 20, 2018);
   // console.log(gLibrary.bookShelf[0].editBook(book6));
   // console.log(gLibrary.bookShelf[0].editBook(book5));
+
+  // console.log("Test getRandomAuthorName");
   // console.log(gLibrary.getRandomAuthorName());
   // console.log(gLibrary.getRandomAuthorName());
   // console.log(gLibrary.getRandomAuthorName());
+
+  // console.log("Test getAuthors");
   // console.log(gLibrary.getAuthors());
+
+  // console.log("Test addBooks");
   // var arr = [book5, book6];
+  // console.log("Test adding the same array of books");
   // console.log(gLibrary.addBooks(arr));
   // console.log(gLibrary.addBooks(arr));
 
+  // console.log("Testing adding a single unique book from array");
+  // var book8 = new Book("PieNite", "G", 20, 2018);
+  // arr = [book5, book8];
+  // console.log(gLibrary.addBooks(arr));
+
+  // console.log("Test removeBookByAuthor");
   // console.log(gLibrary.removeBookByAuthor("k"));
   // console.log(gLibrary.removeBookByAuthor("bay"));
   // console.log(gLibrary.removeBookByAuthor("W.B"));
-  // console.log(gLibrary.getRandomBook())
-  // console.log(gLibrary.getRandomBook())
-  // console.log(gLibrary.getRandomBook())
+
+  // console.log("Test getRandomBook");
+  // console.log(gLibrary.getRandomBook());
+  // console.log(gLibrary.getRandomBook());
+  // console.log(gLibrary.getRandomBook());
+
+  // console.log("Test getBookByTitle");
+  // console.log(gLibrary.getBookByTitle("ka"));
   // console.log(gLibrary.getBookByTitle('bb'));
   // console.log(gLibrary.getBookByTitle('nite '));
+
+  // console.log("Test getBookByAuthor");
   // console.log(gLibrary.getBookByAuthor('k'));
-  // console.log(gLibrary.getBookByAuthor("W.B"))
-  // console.log(gLibrary.getBookByAuthor("b "))
+  // console.log(gLibrary.getBookByAuthor("W.B"));
+  // console.log(gLibrary.getBookByAuthor("b "));
+
+  // console.log("Test removeBookByTitle");
   // console.log(gLibrary.removeBookByTitle("k"));
   // console.log(gLibrary.removeBookByTitle("Waterfall"));
-  // console.log(gLibrary.removeBookByAuthor("E.F"));
-  // var list = gLibrary.getBookByTitle("ka");
+
+  // console.log("Test getAuthors");
   // console.log(gLibrary.getAuthors());
-  // var name = gLibrary.getRandomAuthorName();
-  // console.log(list);
-  // console.log(name);
-  //console.log(gLibrary.find('waterfall ', "bay", 89));
+
+  // console.log("Test getRandomAuthorName");
+  //console.log(gLibrary.getRandomAuthorName());
+
+
+
+  // console.log("Test find");
+  // console.log(gLibrary.find('waterfall'));
+  // console.log(gLibrary.find('waterfall ', 'bay'));
+  // console.log(gLibrary.find('waterfall ', "bay", 89));
+  // console.log(gLibrary.find('waterfall ', "bay", 89, 2018)); ****
+
+
+
 
 //   //Check for webstorage support
 //   if (typeof(Storage) !== "undefined") {
