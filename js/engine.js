@@ -90,8 +90,7 @@ Library.prototype.removeBookByAuthor = function(authorName) {
 Library.prototype.getRandomBook = function() {
   //Math.random returns a number between 0 and 1 (not inclusive)
   //Math.floor rounds the number down
-  //gets an index between 0 and lenght-1
-  //check when null
+  //gets an index between 0 and length-1
   if(this.bookShelf.length === 0) {
     return null;
   }
@@ -104,7 +103,7 @@ Library.prototype.getRandomBook = function() {
 /**
 * Returns all books that completely and partially match the title
 * @param {String} title
-* @return {Array} of book Objects that match and partially match the title or an empty array if no books match or partially match
+* @return {Array} of book Objects that match and partially match the title or an empty array
 */
 Library.prototype.getBookByTitle = function(title) {
   //checks that the param exists
@@ -122,16 +121,13 @@ Library.prototype.getBookByTitle = function(title) {
 /**
 * Returns all books that match and partially match the author's name
 * @param {String} authorName
-* @return {Array} of books Objects that match and partially match the author name or an empty array if no books match or partially match
+* @return {Array} of books Objects that match and partially match the author name or an empty array
 */
 Library.prototype.getBookByAuthor = function(authorName) {
   //checks that the param exists
   if (authorName) {
     var regex = new RegExp(authorName.trim(), 'i');
   }
-  //regular expression
-  //check param not null or empty
-  //can have numbers in the param
   //will get an array of books that contain that title
   var bookByAuthor = this.bookShelf.filter(function matchingAuthors(ele) {
     return ele.author.match(regex) !== null;
@@ -156,7 +152,7 @@ Library.prototype.addBooks = function(books) {
 
 /**
 * Returns the distinct authors' names from all books in the library
-* @return {Array} of Strings of the names of all distinct authors or an empty array if no books exist or if no authors exist
+* @return {Array} of Strings of the names of all distinct authors or an empty array if no books exist
 */
 Library.prototype.getAuthors = function() {
   //another way to do this....
