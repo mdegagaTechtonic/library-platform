@@ -25,6 +25,7 @@ function Book(title, author, numPages, pubDate) {
 * @return {Book} the edited book object
 */
 Book.prototype.editBook = function(oBook){
+  //make sure the info is unique too
   //how about undefined properties of oBook?
   if(oBook.title !== null) {
     this.title = oBook.title;
