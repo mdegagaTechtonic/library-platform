@@ -1,7 +1,7 @@
 /**
  * @file The Book class
  * @author Merry Degaga
- * @version 10.3.2018
+ * @version 10.4.2018
  */
 
 /**
@@ -9,10 +9,12 @@
 * @param {String} title
 * @param {String} author
 * @param {number} numPages is the number of pages
-* @param {number} pubDate is the published date
+* @param {number} pubDate is the published year
 */
 function Book(title, author, numPages, pubDate) {
-  //Can error check to make sure all the fields were provided and they are not null
+  if(!title || !author || !numPages || !pubDate) {
+    return "Need title, author, number of pages, and publication year to create a book"
+  }
   this.title = title.trim();
   this.author = author.trim();
   this.numPages = numPages;

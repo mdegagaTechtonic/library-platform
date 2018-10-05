@@ -1,27 +1,29 @@
 /**
  * @file The Library class that stores a collection of books
  * @author Merry Degaga
- * @version 10.3.2018
+ * @version 10.4.2018
  */
 
 /*
 * Constructor creates a library
 */
 //more appropriate for unique things/values for each object
-//create a singleton
-//how to test the singleton
-//https://codepen.io/JoeCoulam/pen/mRqbzz?editors=0010
-function Library() {
-    this.bookShelf = new Array();
-};
+(function() {//SINGLETON
+  var instance;
+  console.log(instance);
+  Library = function() {
+    if (instance) { //if a instance of library already exists this will point the newly made library to the Singleton instance
+      // console.log('alreeaady made an instance');
+      return instance;
+    }
+    // console.log('new instance made');
+    this.bookShelf = [];
+    instance = this; //if a instance of library does not yet exist this will get and set the instance name for the new library
+  }
+})();
 
 //method
 //Global things for all objects; avoids repetition, saves memory
-
-//Library.prototype.checkedOut = true; //testing
-//var book = new Library(); //testing
-//console.log(book.checkedOut); ///testing
-
 /**
 * Adds a book to the library
 * @param {Book} book
@@ -29,7 +31,11 @@ function Library() {
 */
 Library.prototype.addBook = function(book) {
   //if book is in the bookShelf, will be returned in an array and check its length
-  if(this.bookShelf.filter(b => b.title === book.title).length === 0) {
+  var foundBook = this.bookShelf.filter(function filterByTitle(ele) {
+    return ele.title === book.title;
+  });
+  //if book wasn't found in the library
+  if(foundBook.length === 0) {
     this.bookShelf.push(book);
     return true;
   }
@@ -64,13 +70,12 @@ Library.prototype.removeBookByTitle = function(title) {
 */
 Library.prototype.removeBookByAuthor = function(authorName) {
   //check if param is null / empty string
-  //case insensitive
-  //console.log(this.bookShelf);
-  var newBookShelf = this.bookShelf.filter(book => book.author.toLowerCase() !== authorName.trim().toLowerCase());
-  //authors not in new bookshelf
+  var newBookShelf = this.bookShelf.filter(function keepAuthors(ele){
+    return ele.author.toLowerCase() !== authorName.trim().toLowerCase();
+  });
+  //author we are searching for is not in the new bookshelf
   if(newBookShelf.length < this.bookShelf.length) {
     this.bookShelf = newBookShelf;
-    //console.log('true')
     return true;
   }
   else {
@@ -106,12 +111,11 @@ Library.prototype.getBookByTitle = function(title) {
   if (title) {
     var regex = new RegExp(title.trim(), 'i');
   }
-  //regular expression
-  //check param not null or empty
-  //can have numbers in the param
   //will get an array of books that contain that title
-  var bookByTitle = this.bookShelf.filter(book => book.title.match(regex) !== null);
   //map to a new array of titles
+  var bookByTitle = this.bookShelf.filter(function matchingTitles(ele) {
+    return ele.title.match(regex) !== null;
+  });
   return bookByTitle;
 };
 
@@ -129,7 +133,9 @@ Library.prototype.getBookByAuthor = function(authorName) {
   //check param not null or empty
   //can have numbers in the param
   //will get an array of books that contain that title
-  var bookByAuthor = this.bookShelf.filter(book => book.author.match(regex) !== null);
+  var bookByAuthor = this.bookShelf.filter(function matchingAuthors(ele) {
+    return ele.author.match(regex) !== null;
+  });
   return bookByAuthor;
 };
 
@@ -142,7 +148,9 @@ Library.prototype.addBooks = function(books) {
   //get the length before books are added in
   var lengthBefore = this.bookShelf.length;
   //go through the array of books and call addBook
-  books.forEach(book => this.addBook(book));
+  books.forEach(function addListOfBooks(ele) {
+    gLibrary.addBook(ele);
+  });
   return (this.bookShelf.length - lengthBefore); //will be zero if no books were added in
 };
 
@@ -158,7 +166,9 @@ Library.prototype.getAuthors = function() {
   }
   else {
     //get all the authors in your library
-    authors = this.bookShelf.map(book => book.author);
+    authors = this.bookShelf.map(function getAuthor(ele) {
+      return ele.author;
+    });
     //remove repeats
     for(var i = 0; i < authors.length; i++) {
       for(var j = i+1; j < authors.length; j++) {
@@ -188,91 +198,120 @@ Library.prototype.getRandomAuthorName = function() {
 
 /**
 * Returns a list of books based on any number of inputs
-* @return {Array} of books name or null if no books exist
+* @return {Array} of books name or an empty array if no books exist
 */
-// Library.prototype.search = function() {
-//   for(var i = 0; i < arguments.length; i++) {
-//
-//   }
-// } EC
+Library.prototype.find = function(title, author, numPages, pubDate) {
+  var found = [];
+  if(title) {
+    found = found.concat(this.getBookByTitle(title));
+  }
+  if(author) {
+    found = found.concat(this.getBookByAuthor(author));
+  }
+  if(numPages) {
+    found = found.concat(this.bookShelf.filter(book => book.numPages === numPages));
+  }
+  if(pubDate) {
+    found = found.concat(this.bookShelf.filter(book => book.pubDate.getFullYear() === pubDate));
+  }
+  return found;
+}
 
 
 //what does DOMContentLoaded initiate?
 //Will create the instance of our library
 document.addEventListener("DOMContentLoaded", function(e){
   //will access all the libaray methods
-  window.gLibrary = {};
+  //console.log(window.gLibrary);
+  //window.gLibrary;
+  //console.log(window.gLibrary);
+  //window.Library = null;
   window.gLibrary = new Library();
+  window.lib = new Library();
+
   //another instance
   //window.gDenverLibrary = new Library();
   //need to handle empty case
   //gLibrary.addBook({});
+
   //empty test
-  //gLibrary.removeBookByTitle("wawa");
-  //console.log(gLibrary.removeBookByAuthor("W.B"));
-  //console.log(gLibrary.getRandomBook());
-  //console.log(gLibrary.getBookByTitle());
+  // console.log(gLibrary.removeBookByTitle("wawa"));
+  // console.log(gLibrary.removeBookByAuthor("W.B"));
+  // console.log(gLibrary.getRandomBook());
+  // console.log(gLibrary.getBookByTitle());
   // console.log(gLibrary.getBookByAuthor('d'))
-  //console.log(gLibrary.addBooks([]));
-  //console.log(gLibrary.getAuthors());
+  // console.log(gLibrary.addBooks([]));
+  // console.log(gLibrary.getAuthors());
   // console.log(gLibrary.getRandomAuthorName());
+  //console.log(gLibrary.find('name','key',29,444))
+
 
   var book1 = new Book("Waterfall", "W.B", 20, 2018);
   var book2 = new Book("HummingBirds", "W.B", 20, 2018);
   var book3 = new Book("NiteSky", "Bay", 20, 2018);
   var book4 = new Book("Nite", "B", 20, 2018);
-  gLibrary.addBook(book1);
-  gLibrary.addBook(book2);
-  gLibrary.addBook(book3);
-  gLibrary.addBook(book4);
+  console.log(gLibrary.addBook(book1));
+  console.log(gLibrary.addBook(book2));
+  console.log(gLibrary.addBook(book3));
+  console.log(gLibrary.addBook(book4));
+  var same = new Book("Nite", "B", 20, 2018);
+  console.log(gLibrary.addBook(same));
+
+
 
   var book5 = new Book("NiteTime", "B", 20, 2018);
   var book6 = new Book("Pie Recipes", "G", 20, 2018);
 
-  // console.log(gLibrary.bookShelf[0]);
   // console.log(gLibrary.bookShelf[0].editBook(book6));
   // console.log(gLibrary.bookShelf[0].editBook(book5));
   // console.log(gLibrary.getRandomAuthorName());
   // console.log(gLibrary.getRandomAuthorName());
   // console.log(gLibrary.getRandomAuthorName());
-  //console.log(gLibrary.getAuthors());
-  //var arr = [book5, book6];
-  //console.log(gLibrary.addBooks(arr));
-  //console.log(gLibrary.removeBookByAuthor("k"));
-  //console.log(gLibrary.removeBookByAuthor("bay"));
-  //console.log(gLibrary.removeBookByAuthor("W.B"));
-  //console.log(gLibrary.getRandomBook())
-  //console.log(gLibrary.getRandomBook())
-  //console.log(gLibrary.getRandomBook())
-  //console.log(gLibrary.getBookByTitle('bb'));
-  //console.log(gLibrary.getBookByTitle('nite '));
+  // console.log(gLibrary.getAuthors());
+  // var arr = [book5, book6];
+  // console.log(gLibrary.addBooks(arr));
+  // console.log(gLibrary.addBooks(arr));
+
+  // console.log(gLibrary.removeBookByAuthor("k"));
+  // console.log(gLibrary.removeBookByAuthor("bay"));
+  // console.log(gLibrary.removeBookByAuthor("W.B"));
+  // console.log(gLibrary.getRandomBook())
+  // console.log(gLibrary.getRandomBook())
+  // console.log(gLibrary.getRandomBook())
+  // console.log(gLibrary.getBookByTitle('bb'));
+  // console.log(gLibrary.getBookByTitle('nite '));
   // console.log(gLibrary.getBookByAuthor('k'));
   // console.log(gLibrary.getBookByAuthor("W.B"))
   // console.log(gLibrary.getBookByAuthor("b "))
-
-
-
-  //console.log(gLibrary.removeBookByTitle("k"));
-
-  // var book2 = new Book("Waterfall", "W.B", 20, 2018);
-  // gLibrary.addBook(book2); //works
-  // var book3 = new Book("Volcano", "E.F", 78, 1989);
-  // book2.editBook(book3); //works
-  // //console.log(book2);
-  // gLibrary.addBook(book2);
-  //
-  // gLibrary.removeBookByTitle("Waterfall");
-  // gLibrary.removeBookByAuthor("E.F");
-  //
-  // gLibrary.getBookByAuthor("m");
-  // gLibrary.addBooks([{author:'b', title:'ka'},{author:'k', title: 'soso'}]);
+  // console.log(gLibrary.removeBookByTitle("k"));
+  // console.log(gLibrary.removeBookByTitle("Waterfall"));
+  // console.log(gLibrary.removeBookByAuthor("E.F"));
   // var list = gLibrary.getBookByTitle("ka");
-  // gLibrary.getAuthors();
+  // console.log(gLibrary.getAuthors());
   // var name = gLibrary.getRandomAuthorName();
-  // var book4 = gLibrary.getRandomBook();
-  // console.log(book4)
-  //console.log(list);
-  //console.log(name);
+  // console.log(list);
+  // console.log(name);
+  //console.log(gLibrary.find('waterfall ', "bay", 89));
+
+//   //Check for webstorage support
+//   if (typeof(Storage) !== "undefined") {
+//     // Code for localStorage/sessionStorage.
+//     //window.localStorage.setItem('lastname', 'Degaga');
+//     window.localStorage.setItem('library', JSON.stringify(gLibrary.bookShelf));
+//     var book7 = new Book("Pie", "G", 20, 2018);
+//     gLibrary.bookShelf = JSON.parse(localStorage.getItem("library"));
+//     //console.log(obj);
+//     //console.log(JSON.parse(localStorage.getItem("library")).addBook(book7));
+//     console.log(gLibrary.addBook(book7));
+//     window.localStorage.setItem('library',JSON.stringify(gLibrary.bookShelf));
+//     document.getElementById("result").innerHTML = localStorage.getItem("library");
+//
+//     //document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+//
+// } else {
+//     // Sorry! No Web Storage support..
+//     console.log("Web storage is not supported in this browser");
+// }
 });
 
 
