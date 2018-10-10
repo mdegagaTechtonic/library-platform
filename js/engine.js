@@ -200,26 +200,46 @@ Library.prototype.getRandomAuthorName = function() {
     return author;
 };
 
-// /**
-// * Returns a list of books based on any number of inputs
-// * @return {Array} of books name or an empty array if no books exist
-// */
-// Library.prototype.find = function(title, author, numPages, pubDate) {
-//   var found = [];
-//   if(title) {
-//     found = found.concat(this.getBookByTitle(title));
-//   }
-//   if(author) {
-//     found = found.concat(this.getBookByAuthor(author));
-//   }
-//   if(numPages) {
-//     found = found.concat(this.bookShelf.filter(book => book.numPages === numPages));
-//   }
-//   if(pubDate) {
-//     found = found.concat(this.bookShelf.filter(book => book.pubDate.getFullYear() === pubDate));
-//   }
-//   return found;
-// }
+/**
+* Returns a list of books based on a number of inputs
+* @param {String} title
+* @param {String} author
+* @param {number} pubDate
+* @return {Array} of books name or an empty array if no books exist
+*/
+Library.prototype.find = function(title, author, pubDate) {
+  var found = [];
+  if(title) {
+    found = found.concat(this.getBookByTitle(title));
+  }
+  if(author) {
+    found = found.concat(this.getBookByAuthor(author));
+  }
+  if(pubDate) {
+    found = found.concat(this.bookShelf.filter(book => book.pubDate.getFullYear() === pubDate));
+  }
+  return this.refineFind(found);
+}
+
+/**
+* Returns a list of distinct books (removes repeates) after find was performed
+* @param {Array} bookArr of book objects
+* @return {Array} of books
+*/
+Library.prototype.refineFind = function(bookArr) {
+  //version 2
+  var titles = [];
+  var uniqueBooks = {};
+  //is a book from the bookshelf, loop through all the books
+  for(var i in bookArr) {
+    //checks if the author is already in the uniqueAuthors collection
+    if(typeof(uniqueBooks[bookArr[i].title]) === "undefined") {
+      titles.push(bookArr[i]);
+    }
+    uniqueBooks[bookArr[i].title] = "added";
+  }
+  return titles;
+}
 
 
 //what does DOMContentLoaded initiate?
@@ -248,7 +268,10 @@ document.addEventListener("DOMContentLoaded", function(e){
   // console.log(gLibrary.addBooks([]));
   // console.log(gLibrary.getAuthors());
   // console.log(gLibrary.getRandomAuthorName());
-  // console.log(gLibrary.find('name','key',29,444))
+  // console.log(gLibrary.find('name','key',29));
+  // console.log(gLibrary.find('name','key'));
+  // console.log(gLibrary.find('name'));
+
 
   console.log("Test addBook method");
   var book1 = new Book("Waterfall", "W.B", 20, 2018);
@@ -320,11 +343,10 @@ document.addEventListener("DOMContentLoaded", function(e){
 
 
 
-  // console.log("Test find");
+  console.log("Test find");
   // console.log(gLibrary.find('waterfall'));
-  // console.log(gLibrary.find('waterfall ', 'bay'));
-  // console.log(gLibrary.find('waterfall ', "bay", 89));
-  // console.log(gLibrary.find('waterfall ', "bay", 89, 2018)); ****
+  // console.log(gLibrary.find('watErfall ', "bay"));
+  console.log(gLibrary.find('waterfall ', "b", 89));
 
 
 
